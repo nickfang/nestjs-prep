@@ -15,8 +15,8 @@ Table Ingredient {
   name String [not null]
   quantity Float [not null]
   unit String [not null]
-  recipe Recipe [not null]
   recipeId Int [not null]
+  recipe Recipe [not null]
 }
 
 Ref: Ingredient.recipeId > Recipe.id
