@@ -1,0 +1,22 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table Recipe {
+  id Int [pk, increment]
+  name String [not null]
+  instructions String [not null]
+  servings Int [not null]
+  ingredients Ingredient [not null]
+}
+
+Table Ingredient {
+  id Int [pk, increment]
+  name String [not null]
+  quantity Float [not null]
+  unit String [not null]
+  recipe Recipe [not null]
+  recipeId Int [not null]
+}
+
+Ref: Ingredient.recipeId > Recipe.id
