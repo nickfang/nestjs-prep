@@ -7,8 +7,8 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { CreateIngredientDTO } from './dto/create.ingredient.dto';
-import { UpdateIngredientDTO } from './dto/update.ingredient.dto';
+import { CreateIngredientDto } from 'src/dto/create-ingredient.dto';
+import { UpdateIngredientDto } from 'src/dto/update-ingredient.dto';
 
 @Controller('ingredients')
 export class IngredientsController {
@@ -21,14 +21,14 @@ export class IngredientsController {
     return `This action returns a ingredient with id: ${id}`;
   }
   @Post()
-  create(@Body() createIngredientDTO: CreateIngredientDTO) {
-    console.log(createIngredientDTO);
-    return `This action creates a new ingredient with name: ${createIngredientDTO.name}`;
+  create(@Body() createIngredientDto: CreateIngredientDto) {
+    console.log(createIngredientDto);
+    return `This action creates a new ingredient with name: ${createIngredientDto.name}`;
   }
   @Put(':id')
   update(
     @Param('id') id: string,
-    @Body() updateIngredientDTO: UpdateIngredientDTO,
+    @Body() updateIngredientDTO: UpdateIngredientDto,
   ) {
     return `This action updates a ingredient with id: ${id} with name: ${updateIngredientDTO.name}`;
   }

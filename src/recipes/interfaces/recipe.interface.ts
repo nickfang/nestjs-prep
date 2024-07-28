@@ -1,7 +1,15 @@
 export interface Recipe {
-  id: string;
+  id: number;
   name: string;
   description: string;
-  ingredients: string[];
-  steps: string[];
+  instructions: string;
+  recipeIngredients: RecipeIngredient[];
+}
+
+export interface RecipeIngredient {
+  // id: number;
+  recipeId: number;
+  // ingredientId: number;
+  quantity: number;
+  unit: string;
 }

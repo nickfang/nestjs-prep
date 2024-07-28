@@ -7,8 +7,8 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { CreateRecipeDTO } from './dto/create.recipes.dto';
-import { UpdateRecipeDTO } from './dto/update.recipes.dto';
+import { CreateRecipeDto } from 'src/dto/create-recipe.dto';
+import { UpdateRecipeDto } from 'src/dto/update-recipe.dto';
 import { RecipesService } from './recipes.service';
 import { Recipe } from './interfaces/recipe.interface';
 
@@ -25,12 +25,12 @@ export class RecipesController {
     return `This action returns a recipe with id: ${id}`;
   }
   @Post()
-  create(@Body() createRecipeDTO: CreateRecipeDTO) {
+  create(@Body() createRecipeDTO: CreateRecipeDto) {
     console.log(createRecipeDTO);
     return `This action creates a new recipe with name: ${createRecipeDTO.name}`;
   }
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateRecipeDTO: UpdateRecipeDTO) {
+  update(@Param('id') id: string, @Body() updateRecipeDTO: UpdateRecipeDto) {
     return `This action updates a recipe with id: ${id} with name: ${updateRecipeDTO.name}`;
   }
   @Delete(':id')

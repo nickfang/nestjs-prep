@@ -2,6 +2,11 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator nestjsDto {
+  provider = "prisma-generator-nestjs-dto"
+  output = "../src/dto"
+}
+
 // for viewing on something like dbdiagram.io
 generator dbml {
   provider = "prisma-dbml-generator"

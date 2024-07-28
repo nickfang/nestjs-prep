@@ -1,15 +1,23 @@
 import { Injectable } from '@nestjs/common';
 import { Recipe } from './interfaces/recipe.interface';
+import { PrismaService } from '../prisma/prisma.service';
+import { CreateRecipeDto } from 'src/dto/create-recipe.dto';
 
 @Injectable()
 export class RecipesService {
-  private readonly recipes: Recipe[] = [];
+  constructor(private prisma: PrismaService) {}
 
-  create(recipe: Recipe) {
-    this.recipes.push(recipe);
+  async findAll(): Promise<Recipe[] | null> {
+    return this.prisma.recipe.findMany({
+      include: {
+        recipeIngredients: true,
+      },
+    });
   }
 
-  findAll(): Recipe[] {
-    return this.recipes;
+  async create(recipe: CreateRecipeDto): Promise<CreateRecipeDto> {
+    return this.prisma.recipe.create({
+      data: recipe,
+    });
   }
 }
