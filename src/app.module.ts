@@ -5,6 +5,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { RecipesController } from './recipes/recipes.controller';
 import { IngredientsController } from './ingredients/ingredients.controller';
 import { NotFoundController } from './not-found/not-found.controller';
+import { RecipesService } from './recipes/recipes.service';
 
 @Module({
   imports: [PrismaModule],
@@ -14,6 +15,6 @@ import { NotFoundController } from './not-found/not-found.controller';
     IngredientsController,
     NotFoundController,
   ],
-  providers: [AppService],
+  providers: [AppService, RecipesService],
 })
 export class AppModule {}

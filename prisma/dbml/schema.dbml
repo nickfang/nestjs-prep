@@ -6,17 +6,30 @@ Table Recipe {
   id Int [pk, increment]
   name String [not null]
   instructions String [not null]
+  description String [not null]
   servings Int [not null]
-  ingredients Ingredient [not null]
+  recipeIngredients RecipeIngredient [not null]
 }
 
 Table Ingredient {
   id Int [pk, increment]
-  name String [not null]
-  quantity Float [not null]
-  unit String [not null]
-  recipeId Int [not null]
-  recipe Recipe [not null]
+  name String [unique, not null]
+  recipeIngredients RecipeIngredient [not null]
 }
 
-Ref: Ingredient.recipeId > Recipe.id
+Table RecipeIngredient {
+  recipe Recipe [not null]
+  recipeId Int [not null]
+  ingredient Ingredient [not null]
+  ingredientId Int [not null]
+  quantity Float [not null]
+  unit String [not null]
+
+  indexes {
+    (recipeId, ingredientId) [pk]
+  }
+}
+
+Ref: RecipeIngredient.recipeId > Recipe.id
+
+Ref: RecipeIngredient.ingredientId > Ingredient.id

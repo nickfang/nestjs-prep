@@ -45,6 +45,24 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+## Development
+### Nest js
+```bash
+# create a new controller
+npx nest g controller
+```
+
+### Prisma
+Make an update to `/prisma/schema.prisma`<br>
+Then run the generate command
+```bash
+npx prisma generate
+```
+Iterate until the update is complete create a migration
+```bash
+npx prisma migrate dev --name <descriptive migration name>
+```
+
 ## Test
 
 ```bash

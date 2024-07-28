@@ -2,7 +2,7 @@ generator client {
   provider = "prisma-client-js"
 }
 
-# for viewing on something like dbdiagram.io
+// for viewing on something like dbdiagram.io
 generator dbml {
   provider = "prisma-dbml-generator"
 }
@@ -13,18 +13,27 @@ datasource db {
 }
 
 model Recipe {
-  id           Int          @id @default(autoincrement())
-  name         String
+  id          Int             @id @default(autoincrement())
+  name        String
   instructions String
-  servings     Int
-  ingredients  Ingredient[]
+  description String
+  servings    Int
+  recipeIngredients RecipeIngredient[]
 }
 
 model Ingredient {
-  id       Int    @id @default(autoincrement())
-  name     String
-  quantity Float
-  unit     String
-  recipeId Int
+  id   Int    @id @default(autoincrement())
+  name String @unique
+  recipeIngredients RecipeIngredient[]
+}
+
+model RecipeIngredient {
   recipe   Recipe @relation(fields: [recipeId], references: [id])
+  recipeId Int
+  ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
+  ingredientId Int
+  quantity Float
+  unit     String // Optional
+
+  @@id([recipeId, ingredientId])
 }
