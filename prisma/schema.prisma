@@ -5,6 +5,8 @@ generator client {
 generator nestjsDto {
   provider = "prisma-generator-nestjs-dto"
   output = "../src/dto"
+  // outputToNestJsResourceStructure = "true"
+  schemaPath = null // disable swagger
 }
 
 // for viewing on something like dbdiagram.io
@@ -17,28 +19,30 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Recipe {
-  id          Int             @id @default(autoincrement())
+model Recipes {
+  id          Int @id @default(autoincrement())
   name        String
   instructions String
-  description String
-  servings    Int
-  recipeIngredients RecipeIngredient[]
+  description String?
+  servings    Int? @default(1)
+  deletedAt DateTime? // Nullable or indicate soft delete
+  archivedAt DateTime? // Nullable to indicate archive
+  recipeIngredients RecipeIngredients[]
 }
 
-model Ingredient {
+model Ingredients {
   id   Int    @id @default(autoincrement())
   name String @unique
-  recipeIngredients RecipeIngredient[]
+  recipeIngredients RecipeIngredients[]
 }
 
-model RecipeIngredient {
-  recipe   Recipe @relation(fields: [recipeId], references: [id])
+model RecipeIngredients {
+  recipe   Recipes @relation(fields: [recipeId], references: [id])
   recipeId Int
-  ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
+  ingredient   Ingredients @relation(fields: [ingredientId], references: [id])
   ingredientId Int
   quantity Float
-  unit     String // Optional
+  unit     String
 
   @@id([recipeId, ingredientId])
 }

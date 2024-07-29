@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class RecipeIngredientDto {
+export class CreateRecipeIngredientsDto {
   @ApiProperty({
     type: `number`,
     format: `float`,

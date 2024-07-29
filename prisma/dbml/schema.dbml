@@ -2,25 +2,27 @@
 //// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 //// ------------------------------------------------------
 
-Table Recipe {
+Table Recipes {
   id Int [pk, increment]
   name String [not null]
   instructions String [not null]
-  description String [not null]
-  servings Int [not null]
-  recipeIngredients RecipeIngredient [not null]
+  description String
+  servings Int [default: 1]
+  deletedAt DateTime
+  archivedAt DateTime
+  recipeIngredients RecipeIngredients [not null]
 }
 
-Table Ingredient {
+Table Ingredients {
   id Int [pk, increment]
   name String [unique, not null]
-  recipeIngredients RecipeIngredient [not null]
+  recipeIngredients RecipeIngredients [not null]
 }
 
-Table RecipeIngredient {
-  recipe Recipe [not null]
+Table RecipeIngredients {
+  recipe Recipes [not null]
   recipeId Int [not null]
-  ingredient Ingredient [not null]
+  ingredient Ingredients [not null]
   ingredientId Int [not null]
   quantity Float [not null]
   unit String [not null]
@@ -30,6 +32,6 @@ Table RecipeIngredient {
   }
 }
 
-Ref: RecipeIngredient.recipeId > Recipe.id
+Ref: RecipeIngredients.recipeId > Recipes.id
 
-Ref: RecipeIngredient.ingredientId > Ingredient.id
+Ref: RecipeIngredients.ingredientId > Ingredients.id

@@ -1,15 +1,15 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Recipe } from './recipe.entity';
-import { Ingredient } from './ingredient.entity';
+import { Recipes } from './recipes.entity';
+import { Ingredients } from './ingredients.entity';
 
-export class RecipeIngredient {
-  recipe?: Recipe;
+export class RecipeIngredients {
+  recipe?: Recipes;
   @ApiProperty({
     type: `integer`,
     format: `int32`,
   })
   recipeId: number;
-  ingredient?: Ingredient;
+  ingredient?: Ingredients;
   @ApiProperty({
     type: `integer`,
     format: `int32`,

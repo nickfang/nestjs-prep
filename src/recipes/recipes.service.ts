@@ -1,23 +1,41 @@
 import { Injectable } from '@nestjs/common';
-import { Recipe } from './interfaces/recipe.interface';
 import { PrismaService } from '../prisma/prisma.service';
-import { CreateRecipeDto } from 'src/dto/create-recipe.dto';
+import { RecipesDto } from 'src/dto/recipes.dto';
+import { CreateRecipesDto } from 'src/dto/create-recipes.dto';
 
 @Injectable()
 export class RecipesService {
   constructor(private prisma: PrismaService) {}
 
-  async findAll(): Promise<Recipe[] | null> {
-    return this.prisma.recipe.findMany({
+  async findAll(includeArchived: boolean): Promise<RecipesDto[] | null> {
+    return this.prisma.recipes.findMany({
+      where: {
+        deletedAt: null,
+        archivedAt: includeArchived ? undefined : null,
+      },
       include: {
         recipeIngredients: true,
       },
     });
   }
 
-  async create(recipe: CreateRecipeDto): Promise<CreateRecipeDto> {
-    return this.prisma.recipe.create({
+  async create(recipe: CreateRecipesDto): Promise<CreateRecipesDto> {
+    return this.prisma.recipes.create({
       data: recipe,
+    });
+  }
+
+  async archive(id: number): Promise<RecipesDto> {
+    return this.prisma.recipes.update({
+      where: { id },
+      data: { archivedAt: new Date() },
+    });
+  }
+
+  async delete(id: number): Promise<RecipesDto> {
+    return this.prisma.recipes.update({
+      where: { id },
+      data: { deletedAt: new Date() },
     });
   }
 }
