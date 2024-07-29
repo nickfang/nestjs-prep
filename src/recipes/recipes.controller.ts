@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
   Put,
   Query,
@@ -25,16 +26,19 @@ export class RecipesController {
   }
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return `This action returns a recipe with id: ${id}`;
+    return this.recipesService.findOne(parseInt(id));
   }
   @Post()
-  create(@Body() createRecipeDTO: CreateRecipesDto) {
-    console.log(createRecipeDTO);
-    return `This action creates a new recipe with name: ${createRecipeDTO.name}`;
+  create(@Body() recipe: CreateRecipesDto) {
+    return this.recipesService.create(recipe);
   }
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateRecipeDTO: UpdateRecipesDto) {
-    return `This action updates a recipe with id: ${id} with name: ${updateRecipeDTO.name}`;
+  replace(@Param('id') id: string, @Body() recipe: UpdateRecipesDto) {
+    return `This action updates a recipe with id: ${id} with name: ${recipe.name}`;
+  }
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() recipe: UpdateRecipesDto) {
+    return this.recipesService.update(parseInt(id), recipe);
   }
   @Delete(':id')
   remove(@Param('id') id: string) {

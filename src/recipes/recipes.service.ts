@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { RecipesDto } from './dto/recipes.dto';
 import { CreateRecipesDto } from './dto/create-recipes.dto';
+import { UpdateRecipesDto } from './dto/update-recipes.dto';
 
 @Injectable()
 export class RecipesService {
@@ -19,8 +20,31 @@ export class RecipesService {
     });
   }
 
+  async findOne(id: number): Promise<RecipesDto> {
+    return this.prisma.recipes.findUnique({
+      where: { id },
+      include: {
+        recipeIngredients: true,
+      },
+    });
+  }
+
   async create(recipe: CreateRecipesDto): Promise<CreateRecipesDto> {
     return this.prisma.recipes.create({
+      data: recipe,
+    });
+  }
+
+  async replace(id: number, recipe: UpdateRecipesDto): Promise<RecipesDto> {
+    return this.prisma.recipes.update({
+      where: { id },
+      data: recipe,
+    });
+  }
+
+  async update(id: number, recipe: UpdateRecipesDto): Promise<RecipesDto> {
+    return this.prisma.recipes.update({
+      where: { id },
       data: recipe,
     });
   }
