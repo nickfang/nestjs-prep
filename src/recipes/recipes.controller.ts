@@ -22,11 +22,11 @@ export class RecipesController {
   async findAll(
     @Query('archived') includeArchived?: string,
   ): Promise<RecipesDto[]> {
-    return this.recipesService.findAll(includeArchived === 'true');
+    return this.recipesService.getAll(includeArchived === 'true');
   }
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.recipesService.findOne(parseInt(id));
+    return this.recipesService.get(parseInt(id));
   }
   @Post()
   create(@Body() recipe: CreateRecipesDto) {

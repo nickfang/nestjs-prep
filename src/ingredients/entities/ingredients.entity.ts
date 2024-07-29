@@ -9,4 +9,14 @@ export class Ingredients {
   id: number;
   name: string;
   recipeIngredients?: RecipeIngredients[];
+  @ApiProperty({
+    type: `string`,
+    format: `date-time`,
+  })
+  archivedAt: Date | null;
+  @ApiProperty({
+    type: `string`,
+    format: `date-time`,
+  })
+  deletedAt: Date | null;
 }

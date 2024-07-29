@@ -8,7 +8,7 @@ import { UpdateRecipesDto } from './dto/update-recipes.dto';
 export class RecipesService {
   constructor(private prisma: PrismaService) {}
 
-  async findAll(includeArchived: boolean): Promise<RecipesDto[] | null> {
+  async getAll(includeArchived: boolean): Promise<RecipesDto[] | null> {
     return this.prisma.recipes.findMany({
       where: {
         deletedAt: null,
@@ -20,7 +20,7 @@ export class RecipesService {
     });
   }
 
-  async findOne(id: number): Promise<RecipesDto> {
+  async get(id: number): Promise<RecipesDto> {
     return this.prisma.recipes.findUnique({
       where: { id },
       include: {
@@ -29,23 +29,23 @@ export class RecipesService {
     });
   }
 
-  async create(recipe: CreateRecipesDto): Promise<CreateRecipesDto> {
+  async create(payload: CreateRecipesDto): Promise<CreateRecipesDto> {
     return this.prisma.recipes.create({
-      data: recipe,
+      data: payload,
     });
   }
 
-  async replace(id: number, recipe: UpdateRecipesDto): Promise<RecipesDto> {
+  async update(id: number, payload: UpdateRecipesDto): Promise<RecipesDto> {
     return this.prisma.recipes.update({
       where: { id },
-      data: recipe,
+      data: payload,
     });
   }
 
-  async update(id: number, recipe: UpdateRecipesDto): Promise<RecipesDto> {
+  async replace(id: number, payload: UpdateRecipesDto): Promise<RecipesDto> {
     return this.prisma.recipes.update({
       where: { id },
-      data: recipe,
+      data: payload,
     });
   }
 

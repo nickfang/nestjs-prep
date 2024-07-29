@@ -25,8 +25,8 @@ model Recipes {
   instructions String
   description String?
   servings    Int? @default(1)
-  deletedAt DateTime? // Nullable or indicate soft delete
   archivedAt DateTime? // Nullable to indicate archive
+  deletedAt DateTime? // Nullable or indicate soft delete
   recipeIngredients RecipeIngredients[]
 }
 
@@ -34,6 +34,8 @@ model Ingredients {
   id   Int    @id @default(autoincrement())
   name String @unique
   recipeIngredients RecipeIngredients[]
+  archivedAt DateTime? // Nullable to indicate archive
+  deletedAt DateTime? // Nullable or indicate soft delete
 }
 
 model RecipeIngredients {
@@ -43,6 +45,8 @@ model RecipeIngredients {
   ingredientId Int
   quantity Float
   unit     String
+  archivedAt DateTime? // Nullable to indicate archive
+  deletedAt DateTime? // Nullable or indicate soft delete
 
   @@id([recipeId, ingredientId])
 }

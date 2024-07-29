@@ -8,8 +8,8 @@ Table Recipes {
   instructions String [not null]
   description String
   servings Int [default: 1]
-  deletedAt DateTime
   archivedAt DateTime
+  deletedAt DateTime
   recipeIngredients RecipeIngredients [not null]
 }
 
@@ -17,6 +17,8 @@ Table Ingredients {
   id Int [pk, increment]
   name String [unique, not null]
   recipeIngredients RecipeIngredients [not null]
+  archivedAt DateTime
+  deletedAt DateTime
 }
 
 Table RecipeIngredients {
@@ -26,6 +28,8 @@ Table RecipeIngredients {
   ingredientId Int [not null]
   quantity Float [not null]
   unit String [not null]
+  archivedAt DateTime
+  deletedAt DateTime
 
   indexes {
     (recipeId, ingredientId) [pk]

@@ -6,18 +6,24 @@ import {
   Param,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import { CreateIngredientsDto } from './dto/create-ingredients.dto';
 import { UpdateIngredientsDto } from './dto/update-ingredients.dto';
+import { IngredientsDto } from './dto/ingredients.dto';
+import { IngredientsService } from './ingredients.service';
 
 @Controller('ingredients')
 export class IngredientsController {
+  constructor(private ingredientsService: IngredientsService) {}
   @Get()
-  findAll(): string {
-    return 'This action returns all ingredients';
+  getAll(
+    @Query('archived') includedArchived?: string,
+  ): Promise<IngredientsDto[] | null> {
+    return this.ingredientsService.getAll(includedArchived === 'true');
   }
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  get(@Param('id') id: string) {
     return `This action returns a ingredient with id: ${id}`;
   }
   @Post()

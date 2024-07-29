@@ -7,4 +7,14 @@ export class IngredientsDto {
   })
   id: number;
   name: string;
+  @ApiProperty({
+    type: `string`,
+    format: `date-time`,
+  })
+  archivedAt: Date | null;
+  @ApiProperty({
+    type: `string`,
+    format: `date-time`,
+  })
+  deletedAt: Date | null;
 }
