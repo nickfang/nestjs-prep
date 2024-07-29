@@ -4,9 +4,9 @@ generator client {
 
 generator nestjsDto {
   provider = "prisma-generator-nestjs-dto"
-  output = "../src/dto"
-  // outputToNestJsResourceStructure = "true"
-  schemaPath = null // disable swagger
+  output = "../dist/dto"
+  outputToNestJsResourceStructure = "true"
+  schemaPath = "test" // disable swagger
 }
 
 // for viewing on something like dbdiagram.io

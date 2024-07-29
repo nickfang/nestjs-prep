@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Recipes } from './recipes.entity';
-import { Ingredients } from './ingredients.entity';
+import { Recipes } from '../../recipes/entities/recipes.entity';
+import { Ingredients } from '../../ingredients/entities/ingredients.entity';
 
 export class RecipeIngredients {
   recipe?: Recipes;

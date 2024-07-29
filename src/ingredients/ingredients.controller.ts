@@ -7,8 +7,8 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { CreateIngredientsDto } from 'src/dto/create-ingredients.dto';
-import { UpdateIngredientsDto } from 'src/dto/update-ingredients.dto';
+import { CreateIngredientsDto } from './dto/create-ingredients.dto';
+import { UpdateIngredientsDto } from './dto/update-ingredients.dto';
 
 @Controller('ingredients')
 export class IngredientsController {

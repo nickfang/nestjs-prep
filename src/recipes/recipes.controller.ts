@@ -8,9 +8,9 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
-import { RecipesDto } from 'src/dto/recipes.dto';
-import { CreateRecipesDto } from 'src/dto/create-recipes.dto';
-import { UpdateRecipesDto } from 'src/dto/update-recipes.dto';
+import { RecipesDto } from './dto/recipes.dto';
+import { CreateRecipesDto } from './dto/create-recipes.dto';
+import { UpdateRecipesDto } from './dto/update-recipes.dto';
 import { RecipesService } from './recipes.service';
 
 @Controller('recipes')

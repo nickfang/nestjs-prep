@@ -49,7 +49,13 @@ $ npm run start:prod
 ### Nest js
 ```bash
 # create a new controller
-npx nest g controller
+npx nest g controller <name>
+
+# create a new provider
+npx nest g service <name>
+
+# create a new module
+npx nest g module <name>
 ```
 
 ### Prisma
@@ -58,7 +64,8 @@ Then run the generate command
 ```bash
 npx prisma generate
 ```
-Iterate until the update is complete create a migration
+Generated DTO's will be in `/dist/dto/` These can be used as the basis for new DTO's or reference to update DTO's from database changes.  Generated DTO's may be incomplete so e generated ones are not reliable.<br>
+Iterate until the update is complete and then create a migration
 ```bash
 npx prisma migrate dev --name <descriptive migration name>
 ```
