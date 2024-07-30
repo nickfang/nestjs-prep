@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  DefaultValuePipe,
   Delete,
   Get,
   Param,
@@ -22,7 +23,8 @@ export class RecipesController {
 
   @Get()
   async getAll(
-    @Query('archived', ParseBoolPipe) includeArchived?: boolean,
+    @Query('archived', new DefaultValuePipe(false), ParseBoolPipe)
+    includeArchived?: boolean,
   ): Promise<RecipesDto[]> {
     return this.recipesService.getAll(includeArchived);
   }

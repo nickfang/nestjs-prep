@@ -1,9 +1,11 @@
 import {
   Body,
   Controller,
+  DefaultValuePipe,
   Delete,
   Get,
   Param,
+  ParseBoolPipe,
   ParseIntPipe,
   Patch,
   Post,
@@ -21,16 +23,18 @@ export class RecipeIngredientsController {
 
   @Get()
   async getAll(
-    @Query('archived') includedArchive?: string,
+    @Query('archived', new DefaultValuePipe(false), ParseBoolPipe)
+    includedArchive?: boolean,
   ): Promise<RecipeIngredientsDto[]> {
-    return this.recipeIngredientsService.getAll(includedArchive === 'true');
+    return this.recipeIngredientsService.getAll(includedArchive);
   }
 
-  @Get(':recipeid/ingredients/:ingredientId')
+  @Get(':recipeId/ingredients/:ingredientId')
   async getOne(
     @Param('recipeId', ParseIntPipe) recipeId: number,
     @Param('ingredientId', ParseIntPipe) ingredientId: number,
   ) {
+    console.log('recipeId', recipeId, 'ingredientId', ingredientId);
     return this.recipeIngredientsService.get(recipeId, ingredientId);
   }
   @Post()
@@ -39,7 +43,7 @@ export class RecipeIngredientsController {
   ): Promise<RecipeIngredientsDto> {
     return this.recipeIngredientsService.create(payload);
   }
-  @Put()
+  @Put(':recipeId/ingredients/:ingredientId')
   async replace(
     @Param('recipe-id', ParseIntPipe) recipeId: number,
     @Param('ingredient-id', ParseIntPipe) ingredientId: number,
@@ -51,7 +55,7 @@ export class RecipeIngredientsController {
       payload,
     );
   }
-  @Patch()
+  @Patch(':recipeId/ingredients/:ingredientId')
   async update(
     @Param('recipe-id', ParseIntPipe) recipeId: number,
     @Param('ingredient-id', ParseIntPipe) ingredientId: number,
@@ -63,11 +67,12 @@ export class RecipeIngredientsController {
       payload,
     );
   }
-  @Delete(':id')
+  @Delete(':recipeId/ingredients/:ingredientId')
   remove(
     @Param('recipeId', ParseIntPipe) recipeId: number,
     @Param('ingredientId', ParseIntPipe) ingredientId: number,
   ) {
+    throw new Error('test');
     return this.recipeIngredientsService.delete(recipeId, ingredientId);
   }
 }

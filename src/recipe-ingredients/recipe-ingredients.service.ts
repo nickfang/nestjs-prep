@@ -21,6 +21,7 @@ export class RecipeIngredientsService {
     recipeId: number,
     ingredientId: number,
   ): Promise<RecipeIngredientsDto> {
+    console.log('recipeId', recipeId, 'ingredientId', ingredientId);
     return this.prisma.recipeIngredients.findUnique({
       where: {
         recipeId_ingredientId: {

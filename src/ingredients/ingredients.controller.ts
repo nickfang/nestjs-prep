@@ -1,9 +1,13 @@
 import {
   Body,
   Controller,
+  DefaultValuePipe,
   Delete,
   Get,
   Param,
+  ParseBoolPipe,
+  ParseIntPipe,
+  Patch,
   Post,
   Put,
   Query,
@@ -18,27 +22,35 @@ export class IngredientsController {
   constructor(private ingredientsService: IngredientsService) {}
   @Get()
   async getAll(
-    @Query('archived') includedArchived?: string,
+    @Query('archived', new DefaultValuePipe(false), ParseBoolPipe)
+    includedArchived?: string,
   ): Promise<IngredientsDto[] | null> {
     return this.ingredientsService.getAll(includedArchived === 'true');
   }
   @Get(':id')
-  async get(@Param('id') id: string): Promise<IngredientsDto> {
-    return this.ingredientsService.get(parseInt(id));
+  async get(@Param('id', ParseIntPipe) id: number): Promise<IngredientsDto> {
+    return this.ingredientsService.get(id);
   }
   @Post()
   async create(@Body() payload: CreateIngredientsDto): Promise<IngredientsDto> {
     return this.ingredientsService.create(payload);
   }
   @Put(':id')
-  async update(
-    @Param('id') id: string,
+  async replace(
+    @Param('id', ParseIntPipe) id: number,
     @Body() payload: UpdateIngredientsDto,
   ): Promise<IngredientsDto> {
-    return this.ingredientsService.update(parseInt(id), payload);
+    return this.ingredientsService.update(id, payload);
+  }
+  @Patch(':id')
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() payload: UpdateIngredientsDto,
+  ): Promise<IngredientsDto> {
+    return this.ingredientsService.update(id, payload);
   }
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id', ParseIntPipe) id: number) {
     return `This action removes a ingredient with id: ${id}`;
   }
 }
