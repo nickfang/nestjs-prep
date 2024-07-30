@@ -33,8 +33,8 @@ model Recipes {
 model Ingredients {
   id   Int    @id @default(autoincrement())
   name String @unique
-  category IngredientCategories @relation(fields: [categoryId], references: [id])
-  categoryId Int
+  category IngredientCategories? @relation(fields: [categoryId], references: [id])
+  categoryId Int?
   description String?
   recipeIngredients RecipeIngredients[]
   archivedAt DateTime? // Nullable to indicate archive

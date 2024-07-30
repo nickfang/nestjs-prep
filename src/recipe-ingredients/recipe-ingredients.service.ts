@@ -54,4 +54,49 @@ export class RecipeIngredientsService {
       data: payload,
     });
   }
+  async replace(
+    recipeId: number,
+    ingredientId: number,
+    payload: UpdateRecipeIngredientsDto,
+  ): Promise<RecipeIngredientsDto> {
+    return this.prisma.recipeIngredients.update({
+      where: {
+        recipeId_ingredientId: {
+          recipeId: recipeId,
+          ingredientId: ingredientId,
+        },
+      },
+      data: payload,
+    });
+  }
+
+  async archive(
+    recipeId: number,
+    ingredientId: number,
+  ): Promise<RecipeIngredientsDto> {
+    return this.prisma.recipeIngredients.update({
+      where: {
+        recipeId_ingredientId: {
+          recipeId: recipeId,
+          ingredientId: ingredientId,
+        },
+      },
+      data: { archivedAt: new Date() },
+    });
+  }
+
+  async delete(
+    recipeId: number,
+    ingredientId: number,
+  ): Promise<RecipeIngredientsDto> {
+    return this.prisma.recipeIngredients.update({
+      where: {
+        recipeId_ingredientId: {
+          recipeId: recipeId,
+          ingredientId: ingredientId,
+        },
+      },
+      data: { deletedAt: new Date() },
+    });
+  }
 }

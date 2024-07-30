@@ -13,5 +13,4 @@ export class CreateIngredientsDto {
     format: `date-time`,
   })
   deletedAt?: Date;
-  categoryId: number;
 }

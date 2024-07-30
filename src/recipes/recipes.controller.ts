@@ -4,6 +4,8 @@ import {
   Delete,
   Get,
   Param,
+  ParseBoolPipe,
+  ParseIntPipe,
   Patch,
   Post,
   Put,
@@ -20,15 +22,14 @@ export class RecipesController {
 
   @Get()
   async getAll(
-    @Query('archived') includeArchived?: string,
+    @Query('archived', ParseBoolPipe) includeArchived?: boolean,
   ): Promise<RecipesDto[]> {
-    throw new Error('Not implemented');
-    return this.recipesService.getAll(includeArchived === 'true');
+    return this.recipesService.getAll(includeArchived);
   }
 
   @Get(':id')
-  async getOne(@Param('id') id: string): Promise<RecipesDto> {
-    return this.recipesService.get(parseInt(id));
+  async getOne(@Param('id', ParseIntPipe) id: number): Promise<RecipesDto> {
+    return this.recipesService.get(id);
   }
 
   @Post()
@@ -37,21 +38,23 @@ export class RecipesController {
   }
 
   @Put(':id')
-  async replace(@Param('id') id: string, @Body() recipe: UpdateRecipesDto) {
+  async replace(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() recipe: UpdateRecipesDto,
+  ) {
     return `This action updates a recipe with id: ${id} with name: ${recipe.name}`;
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() payload: UpdateRecipesDto) {
-    return this.recipesService.update(parseInt(id), payload);
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() payload: UpdateRecipesDto,
+  ) {
+    return this.recipesService.update(id, payload);
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string) {
-    const idNum = parseInt(id);
-    if (isNaN(idNum)) {
-      throw new Error('Invalid ID, no recipe deleted.');
-    }
-    return this.recipesService.delete(idNum);
+  async remove(@Param('id', ParseIntPipe) id: number) {
+    return this.recipesService.delete(id);
   }
 }

@@ -16,8 +16,8 @@ Table Recipes {
 Table Ingredients {
   id Int [pk, increment]
   name String [unique, not null]
-  category IngredientCategories [not null]
-  categoryId Int [not null]
+  category IngredientCategories
+  categoryId Int
   description String
   recipeIngredients RecipeIngredients [not null]
   archivedAt DateTime
