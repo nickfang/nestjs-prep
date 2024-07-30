@@ -1,21 +1,16 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class IngredientsDto {
-  @ApiProperty({
-    type: `integer`,
-    format: `int32`,
-  })
-  id: number;
+export class CreateIngredientCategoriesDto {
   name: string;
-  description: string | null;
+  description?: string;
   @ApiProperty({
     type: `string`,
     format: `date-time`,
   })
-  archivedAt: Date | null;
+  archivedAt?: Date;
   @ApiProperty({
     type: `string`,
     format: `date-time`,
   })
-  deletedAt: Date | null;
+  deletedAt?: Date;
 }

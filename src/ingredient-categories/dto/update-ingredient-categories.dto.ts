@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CreateIngredientsDto {
-  name: string;
+export class UpdateIngredientCategoriesDto {
+  name?: string;
   description?: string;
   @ApiProperty({
     type: `string`,
@@ -13,5 +13,4 @@ export class CreateIngredientsDto {
     format: `date-time`,
   })
   deletedAt?: Date;
-  categoryId: number;
 }

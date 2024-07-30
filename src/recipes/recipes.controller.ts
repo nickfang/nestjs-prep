@@ -19,29 +19,35 @@ export class RecipesController {
   constructor(private recipesService: RecipesService) {}
 
   @Get()
-  async findAll(
+  async getAll(
     @Query('archived') includeArchived?: string,
   ): Promise<RecipesDto[]> {
+    throw new Error('Not implemented');
     return this.recipesService.getAll(includeArchived === 'true');
   }
+
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  async getOne(@Param('id') id: string): Promise<RecipesDto> {
     return this.recipesService.get(parseInt(id));
   }
+
   @Post()
-  create(@Body() recipe: CreateRecipesDto) {
-    return this.recipesService.create(recipe);
+  async create(@Body() payload: CreateRecipesDto) {
+    return this.recipesService.create(payload);
   }
+
   @Put(':id')
-  replace(@Param('id') id: string, @Body() recipe: UpdateRecipesDto) {
+  async replace(@Param('id') id: string, @Body() recipe: UpdateRecipesDto) {
     return `This action updates a recipe with id: ${id} with name: ${recipe.name}`;
   }
+
   @Patch(':id')
-  update(@Param('id') id: string, @Body() recipe: UpdateRecipesDto) {
-    return this.recipesService.update(parseInt(id), recipe);
+  async update(@Param('id') id: string, @Body() payload: UpdateRecipesDto) {
+    return this.recipesService.update(parseInt(id), payload);
   }
+
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  async remove(@Param('id') id: string) {
     const idNum = parseInt(id);
     if (isNaN(idNum)) {
       throw new Error('Invalid ID, no recipe deleted.');

@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { RecipeIngredients } from '../../recipeIngredients/entities/recipeIngredients.entity';
+import { RecipeIngredients } from '../../recipe-ingredients/entities/recipe-ingredients.entity';
 
 export class Recipes {
   @ApiProperty({

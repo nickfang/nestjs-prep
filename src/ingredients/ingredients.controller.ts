@@ -17,26 +17,25 @@ import { IngredientsService } from './ingredients.service';
 export class IngredientsController {
   constructor(private ingredientsService: IngredientsService) {}
   @Get()
-  getAll(
+  async getAll(
     @Query('archived') includedArchived?: string,
   ): Promise<IngredientsDto[] | null> {
     return this.ingredientsService.getAll(includedArchived === 'true');
   }
   @Get(':id')
-  get(@Param('id') id: string) {
-    return `This action returns a ingredient with id: ${id}`;
+  async get(@Param('id') id: string): Promise<IngredientsDto> {
+    return this.ingredientsService.get(parseInt(id));
   }
   @Post()
-  create(@Body() createIngredientDto: CreateIngredientsDto) {
-    console.log(createIngredientDto);
-    return `This action creates a new ingredient with name: ${createIngredientDto.name}`;
+  async create(@Body() payload: CreateIngredientsDto): Promise<IngredientsDto> {
+    return this.ingredientsService.create(payload);
   }
   @Put(':id')
-  update(
+  async update(
     @Param('id') id: string,
-    @Body() updateIngredientDTO: UpdateIngredientsDto,
-  ) {
-    return `This action updates a ingredient with id: ${id} with name: ${updateIngredientDTO.name}`;
+    @Body() payload: UpdateIngredientsDto,
+  ): Promise<IngredientsDto> {
+    return this.ingredientsService.update(parseInt(id), payload);
   }
   @Delete(':id')
   remove(@Param('id') id: string) {

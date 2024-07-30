@@ -29,7 +29,7 @@ export class RecipesService {
     });
   }
 
-  async create(payload: CreateRecipesDto): Promise<CreateRecipesDto> {
+  async create(payload: CreateRecipesDto): Promise<RecipesDto> {
     return this.prisma.recipes.create({
       data: payload,
     });

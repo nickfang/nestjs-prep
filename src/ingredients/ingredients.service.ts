@@ -23,7 +23,7 @@ export class IngredientsService {
     });
   }
 
-  async create(payload: IngredientsDto): Promise<CreateIngredientsDto> {
+  async create(payload: CreateIngredientsDto): Promise<IngredientsDto> {
     return this.prisma.ingredients.create({
       data: payload,
     });

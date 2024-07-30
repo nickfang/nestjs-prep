@@ -8,15 +8,27 @@ Table Recipes {
   instructions String [not null]
   description String
   servings Int [default: 1]
+  recipeIngredients RecipeIngredients [not null]
   archivedAt DateTime
   deletedAt DateTime
-  recipeIngredients RecipeIngredients [not null]
 }
 
 Table Ingredients {
   id Int [pk, increment]
   name String [unique, not null]
+  category IngredientCategories [not null]
+  categoryId Int [not null]
+  description String
   recipeIngredients RecipeIngredients [not null]
+  archivedAt DateTime
+  deletedAt DateTime
+}
+
+Table IngredientCategories {
+  id Int [pk, increment]
+  name String [unique, not null]
+  description String
+  ingredients Ingredients [not null]
   archivedAt DateTime
   deletedAt DateTime
 }
@@ -35,6 +47,8 @@ Table RecipeIngredients {
     (recipeId, ingredientId) [pk]
   }
 }
+
+Ref: Ingredients.categoryId > IngredientCategories.id
 
 Ref: RecipeIngredients.recipeId > Recipes.id
 

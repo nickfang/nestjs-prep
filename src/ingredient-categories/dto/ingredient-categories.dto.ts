@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class IngredientsDto {
+export class IngredientCategoriesDto {
   @ApiProperty({
     type: `integer`,
     format: `int32`,

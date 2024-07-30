@@ -6,7 +6,7 @@ generator nestjsDto {
   provider = "prisma-generator-nestjs-dto"
   output = "../dist/dto"
   outputToNestJsResourceStructure = "true"
-  schemaPath = "test" // disable swagger
+  fileNamingStrategy = "kebab-case"
 }
 
 // for viewing on something like dbdiagram.io
@@ -25,17 +25,29 @@ model Recipes {
   instructions String
   description String?
   servings    Int? @default(1)
-  archivedAt DateTime? // Nullable to indicate archive
-  deletedAt DateTime? // Nullable or indicate soft delete
   recipeIngredients RecipeIngredients[]
+  archivedAt DateTime? // Nullable to indicate archive
+  deletedAt DateTime? // Nullable to indicate soft delete
 }
 
 model Ingredients {
   id   Int    @id @default(autoincrement())
   name String @unique
+  category IngredientCategories @relation(fields: [categoryId], references: [id])
+  categoryId Int
+  description String?
   recipeIngredients RecipeIngredients[]
   archivedAt DateTime? // Nullable to indicate archive
-  deletedAt DateTime? // Nullable or indicate soft delete
+  deletedAt DateTime? // Nullable to indicate soft delete
+}
+
+model IngredientCategories {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+  description String?
+  ingredients Ingredients[]
+  archivedAt DateTime? // Nullable to indicate archive
+  deletedAt DateTime? // Nullable to indicate soft delete
 }
 
 model RecipeIngredients {
@@ -46,7 +58,7 @@ model RecipeIngredients {
   quantity Float
   unit     String
   archivedAt DateTime? // Nullable to indicate archive
-  deletedAt DateTime? // Nullable or indicate soft delete
+  deletedAt DateTime? // Nullable to indicate soft delete
 
   @@id([recipeId, ingredientId])
 }
