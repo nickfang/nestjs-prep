@@ -6,7 +6,6 @@ import {
   Get,
   Param,
   ParseBoolPipe,
-  ParseFloatPipe,
   ParseIntPipe,
   Patch,
   Post,
