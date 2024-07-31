@@ -5,8 +5,8 @@ export class CreateRecipeIngredientsDto {
     type: `number`,
     format: `float`,
   })
-  quantity: number;
+  quantity: string;
   unit: string;
-  recipeId: number;
-  ingredientId: number;
+  recipeId: string;
+  ingredientId: string;
 }

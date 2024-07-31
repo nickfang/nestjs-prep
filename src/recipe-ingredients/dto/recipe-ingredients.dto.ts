@@ -7,4 +7,6 @@ export class RecipeIngredientsDto {
   })
   quantity: number;
   unit: string;
+  recipeId: number;
+  ingredientId: number;
 }

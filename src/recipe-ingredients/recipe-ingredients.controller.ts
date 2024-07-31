@@ -6,6 +6,7 @@ import {
   Get,
   Param,
   ParseBoolPipe,
+  ParseFloatPipe,
   ParseIntPipe,
   Patch,
   Post,
@@ -41,7 +42,14 @@ export class RecipeIngredientsController {
   async create(
     @Body() payload: CreateRecipeIngredientsDto,
   ): Promise<RecipeIngredientsDto> {
-    return this.recipeIngredientsService.create(payload);
+    console.log(payload);
+    const parsedPayload: RecipeIngredientsDto = {
+      ...payload,
+      quantity: parseFloat(payload.quantity),
+      recipeId: parseInt(payload.recipeId),
+      ingredientId: parseInt(payload.ingredientId),
+    };
+    return this.recipeIngredientsService.create(parsedPayload);
   }
   @Put(':recipeId/ingredients/:ingredientId')
   async replace(
